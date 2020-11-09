@@ -1,0 +1,15 @@
+/Users/kjetildyrland/DAT250/FeedApp-repo/REST-API/src/main/java/no/hvl/dat250/FeedApp/Models/Vote.java
+/Users/kjetildyrland/DAT250/FeedApp-repo/REST-API/src/main/java/no/hvl/dat250/FeedApp/Controllers/UserController.java
+/Users/kjetildyrland/DAT250/FeedApp-repo/REST-API/src/main/java/no/hvl/dat250/FeedApp/FeedAppApplication.java
+/Users/kjetildyrland/DAT250/FeedApp-repo/REST-API/src/main/java/no/hvl/dat250/FeedApp/Main/Main.java
+/Users/kjetildyrland/DAT250/FeedApp-repo/REST-API/src/main/java/no/hvl/dat250/FeedApp/DAO/UserDAO.java
+/Users/kjetildyrland/DAT250/FeedApp-repo/REST-API/src/main/java/no/hvl/dat250/FeedApp/DAO/PollDAO.java
+/Users/kjetildyrland/DAT250/FeedApp-repo/REST-API/src/main/java/no/hvl/dat250/FeedApp/Controllers/VoteController.java
+/Users/kjetildyrland/DAT250/FeedApp-repo/REST-API/src/main/java/no/hvl/dat250/FeedApp/Models/Poll.java
+/Users/kjetildyrland/DAT250/FeedApp-repo/REST-API/src/main/java/no/hvl/dat250/FeedApp/DAO/DAO.java
+/Users/kjetildyrland/DAT250/FeedApp-repo/REST-API/src/main/java/no/hvl/dat250/FeedApp/Service/VotingService.java
+/Users/kjetildyrland/DAT250/FeedApp-repo/REST-API/src/main/java/no/hvl/dat250/FeedApp/Service/UserService.java
+/Users/kjetildyrland/DAT250/FeedApp-repo/REST-API/src/main/java/no/hvl/dat250/FeedApp/Controllers/PollController.java
+/Users/kjetildyrland/DAT250/FeedApp-repo/REST-API/src/main/java/no/hvl/dat250/FeedApp/Models/User.java
+/Users/kjetildyrland/DAT250/FeedApp-repo/REST-API/src/main/java/no/hvl/dat250/FeedApp/DAO/VoteDAO.java
+/Users/kjetildyrland/DAT250/FeedApp-repo/REST-API/src/main/java/no/hvl/dat250/FeedApp/Service/PollService.java
