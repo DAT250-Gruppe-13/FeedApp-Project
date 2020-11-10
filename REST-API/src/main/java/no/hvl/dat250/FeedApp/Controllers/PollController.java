@@ -1,5 +1,6 @@
 package no.hvl.dat250.FeedApp.Controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +55,21 @@ public class PollController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
 		}
 		return poll;
+	}
+	
+	@GetMapping("/polls/recentlyfinished")
+	public ResponseEntity<List<Long>> getEndedPolls() {
+		List<Poll> polls = pollService.readAllPolls();
+		List<Long> idEndedPolls = new ArrayList<Long>();
+		
+		for (Poll p : polls)
+			idEndedPolls.add(p.getId());
+		
+		if (!idEndedPolls.isEmpty()) {
+			return new ResponseEntity<>(idEndedPolls, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
 	}
 	
 	@GetMapping("/polls/result/{id}")
