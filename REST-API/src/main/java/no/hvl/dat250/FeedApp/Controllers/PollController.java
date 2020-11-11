@@ -57,7 +57,7 @@ public class PollController {
 		return poll;
 	}
 	
-	@GetMapping("/polls/recentlyfinished")
+	@GetMapping("/polls/finished")
 	public ResponseEntity<List<Long>> getEndedPolls() {
 		List<Poll> polls = pollService.readAllPolls();
 		List<Long> idEndedPolls = new ArrayList<Long>();

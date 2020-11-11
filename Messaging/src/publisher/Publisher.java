@@ -29,12 +29,14 @@ public class Publisher {
 
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost("localhost");
+		
+		
 		String messageString = "";
 		List<Long> list = new ArrayList<>();
 
 		while (true) {
 			try {
-				URL url = new URL("http://localhost:8080/polls/recentlyfinished");
+				URL url = new URL("http://localhost:8080/polls/finished");
 				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
 				connection.setRequestMethod("GET");
@@ -47,16 +49,17 @@ public class Publisher {
 					for (int i = 0; i < newList.size(); i++) {
 						if (!list.contains(newList.get(i))) {
 							System.out.println("------- Publish Start -------");
+							System.out.println("Publishing poll with id: " + newList.get(i));
 							URL url2 = new URL("http://localhost:8080/polls/result/" + newList.get(i)); // newList.get(i);
 							HttpURLConnection connection2 = (HttpURLConnection) url2.openConnection();
 							messageString = Helper.getUrlString(connection2);
+							
 							Connection client = factory.newConnection();
 							Channel channel = client.createChannel();
-
 							channel.queueDeclare(QUEUE_NAME, false, false, false, null);
 
-							channel.exchangeDeclare("test", "fanout");
-							channel.basicPublish("test", "", null, messageString.getBytes());
+							channel.exchangeDeclare("test", "topic");
+							channel.basicPublish("test", "iot", null, messageString.getBytes());
 
 							System.out.println("\tMessage '" + messageString + "' to 'iot'");
 
