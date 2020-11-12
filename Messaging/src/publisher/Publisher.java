@@ -72,49 +72,49 @@ public class Publisher {
 							JSONObject json = new JSONObject(messageString);
 							JSONObject content = new JSONObject();
 							String title = Helper.removeSpacesHelper(json.getString("title"));
-							URL dweet = new URL("https://dweet.io/dweet/for/" + title);
+							URL dweetUrl = new URL("https://dweet.io/dweet/for/" + title);
 
 							content.put(json.getJSONObject("red").getString("text"),
-									String.valueOf(json.getJSONObject("red").getInt("amount")));
+									String.valueOf(json.getJSONObject("red").getInt("value")));
 							
 							content.put(json.getJSONObject("green").getString("text"),
-									String.valueOf(json.getJSONObject("green").getInt("amount")));
-							byte[] postDataBytes = content.toString().getBytes("UTF-8");
-							HttpURLConnection dweetcon = (HttpURLConnection) dweet.openConnection();
-							dweetcon.setRequestMethod("POST");
-							dweetcon.setRequestProperty("Content-Type", "application/json");
-							dweetcon.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
-							dweetcon.setDoOutput(true);
-							OutputStream os = dweetcon.getOutputStream();
+									String.valueOf(json.getJSONObject("green").getInt("value")));
+							byte[] jsonBytes = content.toString().getBytes("UTF-8");
+							HttpURLConnection dweetConnection = (HttpURLConnection) dweetUrl.openConnection();
+							dweetConnection.setRequestMethod("POST");
+							dweetConnection.setRequestProperty("Content-Type", "application/json");
+							dweetConnection.setRequestProperty("Content-Length", String.valueOf(jsonBytes.length));
+							dweetConnection.setDoOutput(true);
+							OutputStream os = dweetConnection.getOutputStream();
 							OutputStreamWriter out = new OutputStreamWriter(os, "UTF-8");
 							out.write(content.toString());
 							out.flush();
 							out.close();
 							os.close();
-							System.out.println("Vote resource [post] - Response code: " + dweetcon.getResponseCode());
-							dweetcon.disconnect();
+							System.out.println("Vote resource [post] - Response code: " + dweetConnection.getResponseCode());
+							dweetConnection.disconnect();
 
 							// Dweet done, getting response
 							System.out.println("------- Getting Dweet Response -------");
 
-							URL dweetget = new URL("https://dweet.io/get/dweets/for/" + title);
-							HttpURLConnection dweetgetcon = (HttpURLConnection) dweetget.openConnection();
-							String dweetresponse = Helper.getUrlString(dweetgetcon);
-							System.out.println(dweetresponse);
-							dweetgetcon.disconnect();
+							URL responseUrl = new URL("https://dweet.io/get/dweets/for/" + title);
+							HttpURLConnection responseConnection = (HttpURLConnection) responseUrl.openConnection();
+							String response = Helper.getUrlString(responseConnection);
+							System.out.println(response);
+							responseConnection.disconnect();
 
 							System.out.println("-------Published -------");
 
 						} else {
-							System.out.println("Poll: " + newList.get(i) + " has already been sent");
+							System.out.println("Poll: " + newList.get(i) + " is sent");
 						}
 
 					}
 					list = newList;
 				} else if (connection.getResponseCode() == 204) {
-					System.out.println("Nothing to update");
+					System.out.println(connection.getResponseCode());
 				} else {
-					System.out.println("Error");
+					System.out.println(connection.getResponseCode());
 				}
 
 				connection.disconnect();

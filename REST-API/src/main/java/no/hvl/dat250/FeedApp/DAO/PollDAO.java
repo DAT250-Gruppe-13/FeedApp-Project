@@ -1,5 +1,7 @@
 package no.hvl.dat250.FeedApp.DAO;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +35,8 @@ public class PollDAO implements DAO<Poll> {
     public Poll read(long id) {
        return em.find(Poll.class, id);
     }
+    
+   
 
     @Override
     public void create(Poll poll) {

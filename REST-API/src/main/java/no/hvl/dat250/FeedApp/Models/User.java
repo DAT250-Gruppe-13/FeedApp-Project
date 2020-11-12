@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,8 +30,8 @@ public class User {
 	
 	@Column(name = "name")
 	private String name;
-	@Column(name = "mail")
-	private String mail;
+	@Column(name = "email")
+	private String email;
 
 	
 	@Column(name = "is_admin")
@@ -40,7 +41,7 @@ public class User {
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-	private List<Poll> polls;
+	private List<Poll> poll;
 
 	@JsonIgnore
 	@ToString.Exclude

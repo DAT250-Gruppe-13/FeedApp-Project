@@ -48,6 +48,8 @@ public class Poll {
 	private Date endDate;
 	private String red;
 	private String green;
+	private int noVotes;
+	private int yesVotes;
 	@Column(name = "code")
 	private String code;
 	@Column(name = "privat")
@@ -55,7 +57,7 @@ public class Poll {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	@JsonIgnoreProperties(value = "polls")
+	@JsonIgnoreProperties(value = "poll")
 	private User user;
 
 	@JsonIgnore

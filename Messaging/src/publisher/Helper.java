@@ -3,12 +3,9 @@ package publisher;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Helper {
 
@@ -22,82 +19,67 @@ public class Helper {
              inReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
          }
          String input;
-         StringBuffer content = new StringBuffer();
+         StringBuffer con = new StringBuffer();
          while ((input = inReader.readLine()) != null) {
-             content.append(input);
+             con.append(input);
          }
          inReader.close();
 
-         return  content.toString();
+         return  con.toString();
      }
 	 
-	public static String getParameterString(Map<String, String> params) throws UnsupportedEncodingException {
-		StringBuilder r = new StringBuilder();
-
-		for (Map.Entry<String, String> entry : params.entrySet()) {
-			r.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-			r.append("=");
-			r.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
-			r.append("&");
-		}
-
-		String resultString = r.toString();
-		return resultString.length() > 0 ? resultString.substring(0, resultString.length() - 1) : resultString;
-	}
+	
 	 
     public static List<Long> getUrlLongResponse(HttpURLConnection connection) throws IOException {
         
       
-        BufferedReader in = null;
+        BufferedReader inReader = null;
         if (connection.getResponseCode() > 299) {
-            in = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+            inReader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
         } else {
-            in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            inReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         }
-        String inputLine;
-        StringBuffer conn = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            conn.append(inputLine);
+        String input;
+        StringBuffer con = new StringBuffer();
+        while ((input = inReader.readLine()) != null) {
+            con.append(input);
         }
-        in.close();
+        inReader.close();
 
-        String s = conn.toString();
+        String s = con.toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\\s", "");
+       
+        String[] stringArray = s.split(",");
         
-        String s2 = s.replaceAll("\\[", "");
-        String s3 = s2.replaceAll("\\]", "");
-        String s4 = s3.replaceAll("\\s", "");
-        String[] array = s4.split(",");
+        List<Long> list = new ArrayList<>();
         
-        List<Long> idList = new ArrayList<>();
-        
-        for (String string : array) {
-        	idList.add(Long.parseLong(string));
+        for (String string : stringArray) {
+        	list.add(Long.parseLong(string));
         }
         
-        return idList;
+        return list;
         
     }
     
     public static String removeSpacesHelper(String string) {
-    	int n = string.length();  
-    	char[] s =string.toCharArray();
+    	  
+    	char[] stringToChar = string.toCharArray();
         int in = 0;  
         int spaces=0;
       
-        for (int i = 0; i < n; i++) {  
+        for (int i = 0; i < string.length(); i++) {  
 
-            if (s[i] == ' ') {  
+            if (stringToChar[i] == ' ') {  
             	spaces++; 
-                s[i+1] = Character.toUpperCase(s[i + 1]);  
+            	stringToChar[i+1] = Character.toUpperCase(stringToChar[i + 1]);  
                 continue;  
             }  
        
             else
-                s[in++] = s[i];          
+            	stringToChar[in++] = stringToChar[i];          
         }  
       
       
-        String result = new String(s);
+        String result = new String(stringToChar);
         String result2 =result.substring(0, result.length()-spaces);
         return result2;  
     } 

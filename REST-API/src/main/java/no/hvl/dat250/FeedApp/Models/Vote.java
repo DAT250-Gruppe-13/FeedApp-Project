@@ -15,15 +15,15 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "votes")
+@Table(name = "vote")
 public class Vote {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private long id;
 
-	private Integer result;
-
+	private Integer value;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	@JsonIgnoreProperties(value = "votes")
