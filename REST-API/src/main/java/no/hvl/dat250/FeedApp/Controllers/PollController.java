@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,16 +46,27 @@ public class PollController {
 	void deletePoll(@PathVariable(name = "id") int id) {
 		pollService.deletePoll(id);
 	}
-	
+	@CrossOrigin
 	@PostMapping("/polls")
-	Poll postPoll(@RequestHeader (name="userEmail") String email,@RequestBody Poll poll) {
+	Poll postPoll(@RequestBody Poll poll) {
 		System.out.println(poll.toString());
-		System.out.println(email);
-		boolean success = pollService.createPoll(poll, email);
+		
+		Poll p = new Poll();
+		p.setDescription(poll.getDescription());
+		p.setTitle(poll.getTitle());
+		p.setStartDate(poll.getStartDate());
+		p.setEndDate(poll.getEndDate());
+		p.setNoVotes(poll.getNoVotes());
+		p.setYesVotes(poll.getYesVotes());
+		p.setRed("red");
+		p.setGreen("green");
+		p.setCode(poll.getCode());
+		p.setPrivat(false);
+		boolean success = pollService.createPoll(p);
 		if (!success) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
 		}
-		return poll;
+		return p;
 	}
 
 	@GetMapping("/polls/finished")

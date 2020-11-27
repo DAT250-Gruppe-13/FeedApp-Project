@@ -50,6 +50,9 @@ public class Poll {
 	private String green;
 	private int noVotes;
 	private int yesVotes;
+	
+	
+
 	@Column(name = "code")
 	private String code;
 	@Column(name = "privat")
@@ -65,5 +68,6 @@ public class Poll {
 	@EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "poll", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Vote> votes;
+
 
 }

@@ -20,7 +20,7 @@ public class Display {
 		in.close();
 
 		try {
-			URL url = new URL("http://localhost:8080/polls/result/" + pollId);
+			URL url = new URL("http://localhost:8080/polls/" + pollId);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
 			connection.setRequestMethod("GET");
@@ -31,13 +31,13 @@ public class Display {
 			String content = Helper.getUrlString(connection);
 
 			JSONObject json = new JSONObject(content);
-			JSONObject red = (JSONObject) json.get("red");
-			JSONObject green = (JSONObject) json.get("green");
+			Integer red = json.getInt("noVotes");
+			Integer green = json.getInt("yesVotes");
 
 			System.out.println("Title: " + json.get("title"));
 			System.out.println("Description: " + json.get("description"));
-			System.out.println(red.get("text") + " :\t" + red.get("value"));
-			System.out.println(green.get("text") + " :\t" + green.get("value"));
+			System.out.println("Red votes :\t" + red);
+			System.out.println("Green votes:\t" + green);
 			
 		} catch (IOException | JSONException e) {
 			e.printStackTrace();

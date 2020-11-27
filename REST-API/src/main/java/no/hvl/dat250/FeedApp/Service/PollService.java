@@ -57,11 +57,6 @@ public class PollService {
 
 	}
 	public boolean createPoll(Poll poll) {
-		User user = userDAO.read(poll.getUser().getId());;
-		if (user == null) {
-			return false;
-		}
-		poll.setUser(user);
 		pollDAO.create(poll);
 		return true;
 
